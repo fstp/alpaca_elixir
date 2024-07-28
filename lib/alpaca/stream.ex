@@ -114,8 +114,8 @@ defmodule Alpaca.Stream do
         __MODULE__.handle_msg(Jason.decode!(msg), state)
       end
 
-      def handle_frame(frame, state) do
-        __MODULE__.handle_msg(frame, state)
+      def handle_frame({:text, msg}, state) do
+        __MODULE__.handle_msg(msg, state)
       end
 
       @doc """
