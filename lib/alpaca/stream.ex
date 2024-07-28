@@ -114,6 +114,10 @@ defmodule Alpaca.Stream do
         __MODULE__.handle_msg(Jason.decode!(msg), state)
       end
 
+      def handle_frame(frame, state) do
+        __MODULE__.handle_msg(frame, state)
+      end
+
       @doc """
       This `listen` function can be used to tell our websocket to listen on either the
       `"account_updates"` stream and/or the `"trade_updates"` stream. It expects the `pid`
