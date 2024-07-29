@@ -93,8 +93,8 @@ defmodule Alpaca.Stream do
       end
       ```
       """
-      def start_link(streams) do
-        {:ok, pid} = WebSockex.start_link(unquote(url), __MODULE__, :no_state)
+      def start_link(streams, opts \\ []) do
+        {:ok, pid} = WebSockex.start_link(unquote(url), __MODULE__, :no_state, opts)
         authenticate(pid)
 
         unless streams == [] do
@@ -112,10 +112,6 @@ defmodule Alpaca.Stream do
       """
       def handle_frame({:binary, msg}, state) do
         __MODULE__.handle_msg(Jason.decode!(msg), state)
-      end
-
-      def handle_frame({:text, msg}, state) do
-        __MODULE__.handle_msg(msg, state)
       end
 
       @doc """
